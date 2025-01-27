@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ToastShower } from "@/Components/ToastShower";
+import { ToastShower } from "@/Components/Atoms/ToastShower";
 
 export default function Simple({children}: PropsWithChildren) {
   return (

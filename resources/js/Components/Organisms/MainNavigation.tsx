@@ -1,7 +1,7 @@
 import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu } from "@/components/ui/sidebar";
-import { NavigationItem } from "@/types";
-import { CollapsibleNavigationItem } from "@/Components/CollapsibleNavigationItem";
-import { SimpleNavigationItem } from "@/Components/SimpleNavigationItem";
+import { CollapsibleNavigationItem } from "@/Components/Molecules/CollapsibleNavigationItem";
+import { SimpleNavigationItem } from "@/Components/Molecules/SimpleNavigationItem";
+import { NavigationItem } from "@/types/interfaces/NavigationItem";
 
 export function MainNavigation({items}: { items: NavigationItem[] }) {
   return (

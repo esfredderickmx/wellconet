@@ -1,6 +1,6 @@
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { NavigationItem } from "@/types";
 import { Link } from "@inertiajs/react";
+import { NavigationItem } from "@/types/interfaces/NavigationItem";
 
 export function SimpleNavigationItem({item}: { item: NavigationItem }) {
   return (

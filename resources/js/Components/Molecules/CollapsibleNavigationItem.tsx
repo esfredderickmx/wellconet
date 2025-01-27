@@ -1,7 +1,7 @@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from "@/components/ui/sidebar";
 import { CaretRight } from "@phosphor-icons/react";
-import { NavigationItem } from "@/types";
+import { NavigationItem } from "@/types/interfaces/NavigationItem";
 
 export function CollapsibleNavigationItem({item}: { item: NavigationItem }) {
   return (

@@ -1,12 +1,12 @@
 import { PropsWithChildren, ReactNode } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/Components/AppSidebar";
-import { AppSidebarTrigger } from "@/Components/AppSidebarTrigger";
+import { AppSidebar } from "@/Components/Templates/AppSidebar";
+import { AppSidebarTrigger } from "@/Components/Atoms/AppSidebarTrigger";
 import { Separator } from "@/components/ui/separator";
-import { ThemeSelector } from "@/Components/ThemeSelector";
-import { ToastShower } from "@/Components/ToastShower";
-import { CompleteProfileModal } from "@/Components/CompleteProfileModal";
+import { ThemeSelector } from "@/Components/Atoms/ThemeSelector";
+import { ToastShower } from "@/Components/Atoms/ToastShower";
+import { CompleteProfileModal } from "@/Components/Templates/CompleteProfileModal";
 
 export default function Default({header, children}: PropsWithChildren<{ header?: ReactNode }>) {
   const defaultOpen = getCookie("sidebar:state") === "true";

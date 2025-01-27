@@ -1,6 +1,6 @@
 import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu } from "@/components/ui/sidebar";
-import { NavigationItem } from "@/types";
-import { SimpleNavigationItem } from "@/Components/SimpleNavigationItem";
+import { SimpleNavigationItem } from "@/Components/Molecules/SimpleNavigationItem";
+import { NavigationItem } from "@/types/interfaces/NavigationItem";
 
 export function CultureNavigation({items}: { items: NavigationItem[] }) {
   return (

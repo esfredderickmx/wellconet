@@ -1,10 +1,13 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head } from "@inertiajs/react";
+import React from "react";
 
 export default function Statistics() {
-  return (
-    <DefaultLayout header="Mis estadísticas">
-      <Head title="Mis estadísticas"/>
-    </DefaultLayout>
-  );
+	return (
+		<>
+			<Head title="Mis estadísticas"/>
+		</>
+	);
 }
+
+Statistics.layout = (page: any) => <DefaultLayout children={page} header="Mis estadísticas"/>;

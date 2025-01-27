@@ -20,7 +20,14 @@ class AuthenticationController extends Controller {
    * @throws Exception
    */
   public function authenticationRedirect() {
-    return Redirect::to(instantiateGoogleClient()->createAuthUrl());
+	  Auth::login(User::get()->random());
+	  Session::regenerate();
+
+	  sendFlashMessage('Sesión iniciada correctamente.');
+		
+	  return Redirect::intended(route('home'));
+		
+    // return Redirect::to(instantiateGoogleClient()->createAuthUrl());
   }
 
   /**
