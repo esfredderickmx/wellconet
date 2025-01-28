@@ -51,7 +51,7 @@ export function UserNavigation() {
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<SidebarMenuButton isActive={is_active} tooltip="Perfil" size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-							<Avatar className={`${open && !isMobile ? "" : "p-1"} w-8 h-8 rounded-lg`}>
+							<Avatar className={`${open ? "" : "p-1"} w-8 h-8 rounded-lg`}>
 								<AvatarImage src={user.picture} alt={user.name} className="rounded-sm"/>
 								<AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
 							</Avatar>
