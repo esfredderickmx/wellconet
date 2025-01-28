@@ -1,6 +1,7 @@
 import { User } from "@/types/models/User";
-import { BackendNotification } from "@/types/interfaces/BackendNotification";
+import { BackendMessage } from "@/types/interfaces/BackendMessage";
 import { SelectOption } from "@/types/interfaces/SelectOption";
+import { BackendNotification } from "@/types/interfaces/BackendNotification";
 
 export type PageProps<
 	T extends Record<string, unknown> = Record<string, unknown>,
@@ -9,7 +10,8 @@ export type PageProps<
 		user: User;
 	};
 	flash: {
-		message: BackendNotification;
+		message: BackendMessage;
+		notification: BackendNotification;
 	};
 	enums: {
 		user_departments: SelectOption[];

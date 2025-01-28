@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ToastShower } from "@/Components/Atoms/ToastShower";
+import { SonnerShower } from "@/Components/Atoms/SonnerShower";
 
 export default function Simple({children}: PropsWithChildren) {
   return (
@@ -9,6 +10,7 @@ export default function Simple({children}: PropsWithChildren) {
         <main>{children}</main>
       </div>
       <ToastShower/>
+      <SonnerShower/>
     </ThemeProvider>
   );
 }

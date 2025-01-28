@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\FrontendNotificationType;
 use App\Models\User;
 use Auth;
 use Google\Exception;
@@ -13,7 +14,7 @@ use Session;
 use Str;
 use function instantiateGoogleClient;
 use function route;
-use function sendFlashMessage;
+use function sendFlashNotification;
 
 class AuthenticationController extends Controller {
   /**
@@ -23,7 +24,7 @@ class AuthenticationController extends Controller {
 	  Auth::login(User::get()->random());
 	  Session::regenerate();
 
-	  sendFlashMessage('Sesión iniciada correctamente.');
+		sendFlashNotification('Sesión iniciada correctamente.', FrontendNotificationType::SUCCESS);
 		
 	  return Redirect::intended(route('home'));
 		
@@ -75,7 +76,7 @@ class AuthenticationController extends Controller {
     Session::invalidate();
     Session::regenerateToken();
 
-    sendFlashMessage('Sesión finalizada correctamente.');
+	  sendFlashNotification('Sesión finalizada correctamente.', FrontendNotificationType::INFO);
 
     return Redirect::route('sign-in');
   }

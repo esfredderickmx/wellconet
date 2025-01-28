@@ -6,6 +6,8 @@ import { Link, usePage } from "@inertiajs/react";
 import { NavigationItem } from "@/types/interfaces/NavigationItem";
 
 export function UserNavigation() {
+	const {open, isMobile, setOpenMobile} = useSidebar();
+
 	const user = usePage().props.auth.user;
 	const navigation_items: NavigationItem[] = [
 		{
@@ -29,7 +31,11 @@ export function UserNavigation() {
 	];
 	const is_active = navigation_items.some((item) => item.isActive);
 
-	const {isMobile, open} = useSidebar();
+	const closeOnMobile = () => {
+		if (isMobile) {
+			setOpenMobile(false);
+		}
+	};
 
 	const getInitials = (name: string): string => {
 		const words = name.trim().split(/\s+/); // Divide el nombre en palabras
@@ -45,7 +51,7 @@ export function UserNavigation() {
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<SidebarMenuButton isActive={is_active} tooltip="Perfil" size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-							<Avatar className={`${open ? "" : "p-1"} w-8 h-8 rounded-lg`}>
+							<Avatar className={`${open && !isMobile ? "" : "p-1"} w-8 h-8 rounded-lg`}>
 								<AvatarImage src={user.picture} alt={user.name} className="rounded-sm"/>
 								<AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
 							</Avatar>
@@ -84,7 +90,7 @@ export function UserNavigation() {
 						<DropdownMenuSeparator/>
 						<DropdownMenuGroup className="space-y-0.5">
 							{navigation_items.map((item) => (
-								<DropdownMenuItem key={item.title} className={item.isActive ? "!text-accent-foreground !bg-accent" : undefined} asChild>
+								<DropdownMenuItem key={item.title} className={item.isActive ? "!text-accent-foreground !bg-accent" : undefined} onClick={closeOnMobile} asChild>
 									<Link href={item.url}>
 										{item.icon && <item.icon/>}
 										{item.title}

@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { ThemeSelector } from "@/Components/Atoms/ThemeSelector";
 import { ToastShower } from "@/Components/Atoms/ToastShower";
 import { CompleteProfileModal } from "@/Components/Templates/CompleteProfileModal";
+import { SonnerShower } from "@/Components/Atoms/SonnerShower";
 
 export default function Default({header, children}: PropsWithChildren<{ header?: ReactNode }>) {
   const defaultOpen = getCookie("sidebar:state") === "true";
@@ -40,6 +41,7 @@ export default function Default({header, children}: PropsWithChildren<{ header?:
         </SidebarInset>
       </SidebarProvider>
       <ToastShower/>
+      <SonnerShower/>
     </ThemeProvider>
   );
 }
