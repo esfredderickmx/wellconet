@@ -1,5 +1,5 @@
-import { useSidebar } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
+import { useSidebar } from "@/Components/ui/sidebar";
+import { Button } from "@/Components/ui/button";
 import { List } from "@phosphor-icons/react";
 
 export function AppSidebarTrigger() {

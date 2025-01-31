@@ -1,6 +1,6 @@
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/Components/ui/sidebar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/Components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
 import { Briefcase, BuildingOffice, CoinVertical, DotsThreeOutlineVertical, Gear, MapPin, SignOut, TextAlignLeft } from "@phosphor-icons/react";
 import { Link, usePage } from "@inertiajs/react";
 import { NavigationItem } from "@/types/interfaces/NavigationItem";

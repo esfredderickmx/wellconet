@@ -1,4 +1,4 @@
-import { SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/Components/ui/sidebar";
 import { Link } from "@inertiajs/react";
 import { NavigationItem } from "@/types/interfaces/NavigationItem";
 

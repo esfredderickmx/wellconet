@@ -1,6 +1,6 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head, Link } from "@inertiajs/react";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/Components/ui/button";
 import { Pen } from "@phosphor-icons/react";
 import React from "react";
 

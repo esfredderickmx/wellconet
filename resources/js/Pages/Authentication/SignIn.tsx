@@ -6,8 +6,8 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
-import { buttonVariants } from "@/components/ui/button";
+} from "@/Components/ui/card";
+import { buttonVariants } from "@/Components/ui/button";
 import { SignIn as SignInIcon, UserCircle } from "@phosphor-icons/react";
 import { ThemeSelector } from "@/Components/Atoms/ThemeSelector";
 import React from "react";

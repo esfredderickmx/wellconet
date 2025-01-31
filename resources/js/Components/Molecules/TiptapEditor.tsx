@@ -1,11 +1,11 @@
 import { EditorProvider, useCurrentEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/Components/ui/card";
 import { Code, Highlighter, ListBullets, ListNumbers, Paragraph, Quotes, TextB, TextHOne, TextHThree, TextHTwo, TextItalic, TextStrikethrough, TextSubscript, TextSuperscript, TextUnderline } from "@phosphor-icons/react";
-import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "@/Components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/Components/ui/tooltip";
 import { Underline } from "@tiptap/extension-underline";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/Components/ui/separator";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";

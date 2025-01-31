@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { usePage } from "@inertiajs/react";
 import { useToast } from "@/hooks/use-toast";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/Components/ui/toaster";
 
 export function ToastShower() {
   const {message} = usePage().props.flash;

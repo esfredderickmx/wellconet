@@ -1,4 +1,4 @@
-import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu } from "@/components/ui/sidebar";
+import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu } from "@/Components/ui/sidebar";
 import { SimpleNavigationItem } from "@/Components/Molecules/SimpleNavigationItem";
 import { NavigationItem } from "@/types/interfaces/NavigationItem";
 

@@ -11,7 +11,6 @@ export function SonnerShower() {
 			const notificationProps = {
 				description: notification.description,
 				duration: notification.duration,
-				richColors: true,
 			};
 
 			switch (notification.type) {

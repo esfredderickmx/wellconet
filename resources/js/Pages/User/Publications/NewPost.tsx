@@ -1,10 +1,10 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Head, Link, router, useForm } from "@inertiajs/react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card";
+import { Label } from "@/Components/ui/label";
+import { Input } from "@/Components/ui/input";
 import { TiptapEditor } from "@/Components/Molecules/TiptapEditor";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/Components/ui/button";
 import { CircleNotch, Eraser, NotePencil } from "@phosphor-icons/react";
 import React from "react";
 import { toast } from "@/hooks/use-toast";
