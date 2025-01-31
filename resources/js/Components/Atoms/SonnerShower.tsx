@@ -1,9 +1,13 @@
 import { usePage } from "@inertiajs/react";
 import { useEffect } from "react";
 import { toast, Toaster } from "sonner";
-import { CheckCircle, CircleNotch, Info, MinusCircle, Warning, XCircle } from "@phosphor-icons/react";
+import { CheckCircle, Info, MinusCircle, Warning, XCircle } from "@phosphor-icons/react";
+import { useTheme } from "@/Components/theme-provider";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export function SonnerShower() {
+	const {theme} = useTheme();
+	const isDesktop = useMediaQuery("(min-width: 768px)");
 	const {notification} = usePage().props.flash;
 
 	useEffect(() => {
@@ -34,12 +38,11 @@ export function SonnerShower() {
 	}, [notification]);
 
 	return (
-		<Toaster icons={{
+		<Toaster position={isDesktop ? "bottom-right" : "top-center"} theme={theme} richColors icons={{
 			success: <CheckCircle weight="fill" size={20}/>,
 			info: <Info weight="fill" size={20}/>,
 			warning: <Warning weight="fill" size={20}/>,
 			error: <XCircle weight="fill" size={20}/>,
-			loading: <CircleNotch size={20} className="animate-spin"/>,
 			close: <MinusCircle size={20}/>,
 		}}/>
 	);
