@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\UserDepartment;
-use App\Enums\UserOffice;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\UserProfile\CompleteProfileRequest;
+use App\Models\Department;
+use App\Models\Office;
+use Illuminate\Support\Carbon;
 
 class UserProfileController extends Controller {
-  public function completeProfile(Request $request) {
-    $request->user()->update($request->validate([
-      'department' => ['required', 'string', Rule::enum(UserDepartment::class)->except(UserDepartment::UNDEFINED)],
-      'office' => ['required', 'string', Rule::enum(UserOffice::class)->except(UserOffice::UNDEFINED)],
-    ]));
-  }
+	public function completeProfile(CompleteProfileRequest $request) {
+		$validated = $request->validated();
+
+		$request->user()->birth_date = Carbon::parse($validated['birth_date']);
+		$request->user()->department()->associate(Department::firstWhere('uuid', $validated['department']));
+		$request->user()->office()->associate(Office::firstWhere('uuid', $validated['office']));
+
+		$request->user()->save();
+	}
 }

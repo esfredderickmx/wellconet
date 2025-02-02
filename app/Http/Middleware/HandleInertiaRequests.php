@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\PublicationType;
-use App\Enums\UserDepartment;
-use App\Enums\UserOffice;
+use App\Models\Department;
+use App\Models\Office;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -32,15 +32,25 @@ class HandleInertiaRequests extends Middleware {
 		return [
 			...parent::share($request),
 			'auth' => [
-				'user' => $request->user() ? $request->user()->only(['name', 'email', 'job_position', 'department_name', 'office_name', 'picture', 'is_profile_complete', 'email_verified_at']) : null,
+				'user' => $request->user()
+					? User::with('department:id,name', 'office:id,name')->find($request->user()->id, ['department_id', 'office_id', 'name', 'email', 'job_position', 'picture', 'email_verified_at'])->append('is_profile_complete')->toArray()
+					: null,
 			],
 			'flash' => [
-				'message' => $request->session()->exists('message') ? $request->session()->pull('message') : null,
-				'notification' => $request->session()->exists('notification') ? $request->session()->pull('notification') : null,
+				'message' => $request->session()->exists('message')
+					? $request->session()->pull('message')
+					: null,
+				'notification' => $request->session()->exists('notification')
+					? $request->session()->pull('notification')
+					: null,
 			],
-			'enums' => [
-				'user_departments' => $request->user() && !$request->user()->is_profile_complete ? UserDepartment::options() : null,
-				'user_offices' => $request->user() && !$request->user()->is_profile_complete ? UserOffice::options() : null,
+			'dictionaries' => [
+				'departments' => $request->user() && !$request->user()->is_profile_complete
+					? Department::get(['uuid', 'name'])
+					: null,
+				'offices' => $request->user() && !$request->user()->is_profile_complete
+					? Office::get(['uuid', 'name'])
+					: null,
 			],
 			'can' => [
 				'write_posts' => $request->user()?->can('write-posts') ?? null,

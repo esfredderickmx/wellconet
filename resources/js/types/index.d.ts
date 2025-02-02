@@ -1,7 +1,7 @@
 import { User } from "@/types/models/User";
 import { BackendMessage } from "@/types/interfaces/BackendMessage";
-import { SelectOption } from "@/types/interfaces/SelectOption";
 import { BackendNotification } from "@/types/interfaces/BackendNotification";
+import { BaseDictionaryData } from "@/types/models/BaseDictionaryData";
 
 export type PageProps<
 	T extends Record<string, unknown> = Record<string, unknown>,
@@ -13,9 +13,9 @@ export type PageProps<
 		message: BackendMessage;
 		notification: BackendNotification;
 	};
-	enums: {
-		user_departments: SelectOption[];
-		user_offices: SelectOption[];
+	dictionaries: {
+		departments: BaseDictionaryData[];
+		offices: BaseDictionaryData[];
 	};
 	can: {
 		write_posts: boolean;

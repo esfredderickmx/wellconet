@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\UserDepartment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,7 +17,6 @@ class Post extends Model {
 
   protected function casts(): array {
     return [
-      'category' => UserDepartment::class,
       'is_sketch' => 'boolean',
     ];
   }

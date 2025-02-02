@@ -77,8 +77,8 @@ export function UserNavigation() {
 							<div className="flex flex-col p-1 text-left">
 								{[
 									{icon: <Briefcase/>, text: user.job_position},
-									{icon: <BuildingOffice/>, text: user.department_name},
-									{icon: <MapPin/>, text: user.office_name},
+									{icon: <BuildingOffice/>, text: user.department?.name},
+									{icon: <MapPin/>, text: user.office?.name},
 								].map((item, index) => (
 									<div key={index} className={`${index === 0 ? "text-sm" : "text-xs text-muted-foreground"} flex items-center gap-1 leading-tight`}>
 										{item.icon}

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
+use App\Models\Office;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -13,5 +15,7 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run(): void {
 		User::factory(10)->create();
+		Department::factory(17)->create();
+		Office::factory(8)->create();
 	}
 }

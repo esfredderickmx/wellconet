@@ -4,11 +4,15 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from "@/Components/ui/button";
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from "@/Components/ui/drawer";
 import { Label } from "@/Components/ui/label";
-import { router, useForm, usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
-import { CircleNotch, FloppyDiskBack } from "@phosphor-icons/react";
+import { CalendarBlank, CircleNotch, FloppyDiskBack } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
+import { Popover, PopoverContent, PopoverTrigger } from "@/Components/ui/popover";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { Calendar } from "@/Components/ui/calendar";
 
 export function CompleteProfileModal() {
 	const [open, setOpen] = useState(!usePage().props.auth.user.is_profile_complete);
@@ -46,31 +50,85 @@ export function CompleteProfileModal() {
 }
 
 function CompleteProfileForm({className, setOpen}: { className?: string, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
-	const departments = usePage().props.enums.user_departments;
-	const offices = usePage().props.enums.user_offices;
+	const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
-  const {data, setData, post, processing, errors} = useForm({
-    department: "",
-    office: "",
-  });
+	const departments = usePage().props.dictionaries.departments;
+	const offices = usePage().props.dictionaries.offices;
+
+	const {data, setData, post, processing, errors, reset} = useForm<{
+		birth_date?: Date;
+		department?: string;
+		office?: string;
+	}>();
 
 	const submit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 
-    post(route("forms.complete-profile"), {
-      onSuccess: () => {
-        router.reload();
-        setOpen(false);
+		toast.dismiss();
+		toast.promise(
+			new Promise<void>((resolve, reject) => {
+				post(route("forms.complete-profile"), {
+					onSuccess: () => {
+						setOpen(false);
+						reset();
 
-        toast({
-          description: "Perfil completado correctamente.",
-        });
-      },
-    });
-  };
+						resolve();
+					},
+					onError: () => {
+						if (Object.keys(errors).length > 0) {
+							reject("messages");
+						} else {
+							reject("unkown");
+						}
+					},
+				});
+			}),
+			{
+				loading: "Guardando cambios en tu perfil...",
+				success: "Cambios guardados correctamente",
+				error: (type) =>
+					type === "messages"
+						? "Por favor, valida la información ingresada"
+						: "Ocurrió un error al guardar los cambios",
+			},
+		);
+	};
 
 	return (
 		<form onSubmit={submit} className={cn("grid items-start gap-4", className)}>
+			<div className="grid gap-2 w-full">
+				<Label htmlFor="department">Fecha de nacimiento</Label>
+				<Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+					<PopoverTrigger asChild>
+						<Button
+							variant={"outline"}
+							className={cn(
+								"pl-3 text-left font-normal",
+								!data.birth_date && "text-muted-foreground",
+							)}
+						>
+							{data.birth_date ? format(data.birth_date, "PPP", {locale: es}) : <span>¿Cuándo naciste?</span>}
+							<CalendarBlank className="ml-auto opacity-50"/>
+						</Button>
+					</PopoverTrigger>
+					<PopoverContent className="w-auto p-0" align="end">
+						<Calendar
+							locale={es}
+							mode="single"
+							showOutsideDays={false}
+							captionLayout="dropdown-buttons"
+							selected={data.birth_date}
+							onSelect={value => setData("birth_date", value ?? new Date())}
+							onDayClick={() => setIsCalendarOpen(false)}
+							defaultMonth={data.birth_date}
+							fromYear={new Date().getFullYear() - 100}
+							toYear={new Date().getFullYear()}
+							initialFocus
+						/>
+					</PopoverContent>
+				</Popover>
+				{errors.birth_date && <div className="text-sm text-red-500">{errors.birth_date}</div>}
+			</div>
 			<div className="grid gap-2 w-full">
 				<Label htmlFor="department">Departamento</Label>
 				<Select value={data.department} onValueChange={value => setData("department", value)}>
@@ -79,7 +137,7 @@ function CompleteProfileForm({className, setOpen}: { className?: string, setOpen
 					</SelectTrigger>
 					<SelectContent>
 						{departments && departments.map((department) => (
-							<SelectItem key={department.value} value={department.value}>{department.label}</SelectItem>
+							<SelectItem key={department.uuid} value={department.uuid}>{department.name}</SelectItem>
 						))}
 					</SelectContent>
 				</Select>
@@ -93,7 +151,7 @@ function CompleteProfileForm({className, setOpen}: { className?: string, setOpen
 					</SelectTrigger>
 					<SelectContent>
 						{offices && offices.map((office) => (
-							<SelectItem key={office.value} value={office.value}>{office.label}</SelectItem>
+							<SelectItem key={office.uuid} value={office.uuid}>{office.name}</SelectItem>
 						))}
 					</SelectContent>
 				</Select>
@@ -105,7 +163,7 @@ function CompleteProfileForm({className, setOpen}: { className?: string, setOpen
 				) : (
 					<FloppyDiskBack weight="fill"/>
 				)}
-				Guardar
+				Guardar cambios
 			</Button>
 		</form>
 	);

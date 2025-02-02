@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\UserDepartment;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,7 +13,6 @@ return new class extends Migration {
       $table->string('title', 100);
       $table->text('body');
       $table->string('picture');
-      $table->enum('category', UserDepartment::values());
       $table->boolean('is_sketch')->default(false);
       $table->timestamps();
     });

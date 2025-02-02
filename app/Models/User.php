@@ -3,63 +3,61 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\UserDepartment;
-use App\Enums\UserOffice;
 use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use function is_null;
 
 class User extends Authenticatable {
-  use HasFactory, Notifiable;
+	use HasFactory, Notifiable;
 
-  protected $fillable = [
-    'google_id',
-    'name',
-    'email',
-    'job_position',
-    'department',
-    'office',
-    'picture',
-    'password',
-    'role',
-  ];
+	protected $fillable = [
+		'department_id',
+		'office_id',
+		'google_id',
+		'name',
+		'email',
+		'office',
+		'birth_date',
+		'picture',
+		'password',
+		'role',
+	];
 
-  protected $hidden = [
-    'password',
-    'remember_token',
-  ];
+	protected $hidden = [
+		'password',
+		'remember_token',
+	];
 
-  protected $appends = [
-    'department_name',
-    'office_name',
-    'is_profile_complete',
-    'role_name',
-  ];
+	public function getIsProfileCompleteAttribute(): bool {
+		return $this->office_id && $this->department_id;
+	}
 
-  public function getDepartmentNameAttribute(): string {
-    return UserDepartment::from($this->department->value)->label();
-  }
+	public function getRoleNameAttribute(): string {
+		return UserRole::from($this->role->value)->label();
+	}
 
-  public function getOfficeNameAttribute(): string {
-    return UserOffice::from($this->office->value)->label();
-  }
+	protected function casts(): array {
+		return [
+			'email_verified_at' => 'datetime',
+			'birth_date' => 'date',
+			'password' => 'hashed',
+			'role' => UserRole::class,
+		];
+	}
 
-  public function getIsProfileCompleteAttribute(): bool {
-    return $this->department !== UserDepartment::UNDEFINED && $this->office !== UserOffice::UNDEFINED;
-  }
+	public function office(): BelongsTo {
+		return $this->belongsTo(Office::class);
+	}
 
-  public function getRoleNameAttribute(): string {
-    return UserRole::from($this->role->value)->label();
-  }
+	public function department(): BelongsTo {
+		return $this->belongsTo(Department::class);
+	}
 
-  protected function casts(): array {
-    return [
-      'email_verified_at' => 'datetime',
-      'password' => 'hashed',
-      'department' => UserDepartment::class,
-      'office' => UserOffice::class,
-      'role' => UserRole::class,
-    ];
-  }
+	public function posts(): HasMany {
+		return $this->hasMany(Post::class);
+	}
 }
