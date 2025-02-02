@@ -6,7 +6,7 @@ import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } f
 import { Label } from "@/Components/ui/label";
 import { useForm, usePage } from "@inertiajs/react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
-import { CalendarBlank, CircleNotch, FloppyDiskBack } from "@phosphor-icons/react";
+import { CalendarBlank, FloppyDiskBack, SpinnerGap } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { Popover, PopoverContent, PopoverTrigger } from "@/Components/ui/popover";
@@ -25,7 +25,7 @@ export function CompleteProfileModal() {
 					<DialogHeader>
 						<DialogTitle>Completa tu perfil</DialogTitle>
 						<DialogDescription>
-							Indícanos tu departamento y la sede donde estás ubicado.
+							Cuéntanos más sobre ti, y dinos dónde podemos encontrarte.
 						</DialogDescription>
 					</DialogHeader>
 					<CompleteProfileForm setOpen={setOpen}/>
@@ -59,7 +59,11 @@ function CompleteProfileForm({className, setOpen}: { className?: string, setOpen
 		birth_date?: Date;
 		department?: string;
 		office?: string;
-	}>();
+	}>({
+		birth_date: undefined,
+		department: "",
+		office: "",
+	});
 
 	const submit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
@@ -97,10 +101,11 @@ function CompleteProfileForm({className, setOpen}: { className?: string, setOpen
 	return (
 		<form onSubmit={submit} className={cn("grid items-start gap-4", className)}>
 			<div className="grid gap-2 w-full">
-				<Label htmlFor="department">Fecha de nacimiento</Label>
+				<Label htmlFor="birth_date">Fecha de nacimiento</Label>
 				<Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
 					<PopoverTrigger asChild>
 						<Button
+							id="birth_date"
 							variant={"outline"}
 							className={cn(
 								"pl-3 text-left font-normal",
@@ -159,7 +164,7 @@ function CompleteProfileForm({className, setOpen}: { className?: string, setOpen
 			</div>
 			<Button type="submit" disabled={processing}>
 				{processing ? (
-					<CircleNotch className="animate-spin"/>
+					<SpinnerGap className="animate-spin"/>
 				) : (
 					<FloppyDiskBack weight="fill"/>
 				)}

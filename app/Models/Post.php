@@ -11,7 +11,6 @@ class Post extends Model {
     'title',
     'body',
     'picture',
-    'category',
     'is_sketch',
   ];
 

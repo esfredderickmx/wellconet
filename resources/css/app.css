@@ -162,8 +162,16 @@
     scrollbar-color: hsl(var(--border)) transparent;
 }
 
+.tiptap p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
 .ProseMirror {
-    @apply w-full rounded-b-md border border-input bg-transparent px-3 py-1.5 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none ring-inset focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm;
+    @apply w-full rounded-b-md border border-input border-t-0 bg-transparent px-3 py-1.5 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none ring-inset focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm;
 }
 
 .ProseMirror h1 {

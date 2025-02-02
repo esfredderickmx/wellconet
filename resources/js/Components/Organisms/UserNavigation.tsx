@@ -14,7 +14,7 @@ export function UserNavigation() {
 			title: "Mis publicaciones",
 			url: route("user.publications"),
 			icon: TextAlignLeft,
-			isActive: route().current("user.publications"),
+			isActive: route().current("user.publications") || route().current("user.publications.new-post"),
 		},
 		{
 			title: "Mis estadísticas",

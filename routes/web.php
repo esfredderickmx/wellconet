@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\PostingController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
   });
 
   Route::post('/complete-profile', [UserProfileController::class, 'completeProfile'])->name('forms.complete-profile');
+  Route::post('/complete-profile', [PostingController::class, 'writeNewPost'])->name('forms.new-post');
 });
 
 //Route::get('/example', function () {

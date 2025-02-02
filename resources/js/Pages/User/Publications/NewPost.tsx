@@ -5,31 +5,53 @@ import { Label } from "@/Components/ui/label";
 import { Input } from "@/Components/ui/input";
 import { TiptapEditor } from "@/Components/Molecules/TiptapEditor";
 import { Button, buttonVariants } from "@/Components/ui/button";
-import { CircleNotch, Eraser, NotePencil } from "@phosphor-icons/react";
+import { Eraser, NotePencil, SpinnerGap } from "@phosphor-icons/react";
 import React from "react";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 export default function NewPost() {
-	const {data, setData, post, processing, errors} = useForm({
+	const {data, setData, post, processing, errors} = useForm<{
+		title?: string;
+		body?: string;
+		picture?: File;
+		is_sketch: boolean;
+	}>({
 		title: "",
 		body: "",
-		picture: "",
+		picture: undefined,
 		is_sketch: false,
 	});
 
 	const submit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 
-		post(route("forms.complete-profile"), {
-			onFinish: () => {
-				router.reload();
-			},
-			onSuccess: () => {
-				toast({
-					description: "Perfil completado correctamente.",
+		toast.dismiss();
+		toast.promise(
+			new Promise<void>((resolve, reject) => {
+				post(route("forms.new-post"), {
+					onSuccess: () => {
+						router.visit(route("user.publications"));
+
+						resolve();
+					},
+					onError: () => {
+						if (Object.keys(errors).length > 0) {
+							reject("messages");
+						} else {
+							reject("unkown");
+						}
+					},
 				});
+			}),
+			{
+				loading: data.is_sketch ? "Guardando el borrador de tu escrito..." : "Publicando tu última obra maestra...",
+				success: data.is_sketch ? "Borrador guardado correctamente" : "Escrito publicado correctamente",
+				error: (type) =>
+					type === "messages"
+						? "Por favor, valida la información ingresada"
+						: (data.is_sketch ? "Ocurrió un error al guardar tu borrador" : "Ocurrió un error al publicar tu escrito"),
 			},
-		});
+		);
 	};
 	return (
 		<>
@@ -38,19 +60,24 @@ export default function NewPost() {
 			<Card className="max-w-md lg:max-w-4xl">
 				<CardHeader>
 					<CardTitle>Escribe una publicación nueva</CardTitle>
-					<CardDescription>Llena el formulario con la información que deseas compartir.</CardDescription>
+					<CardDescription>Llena el siguiente formulario con la información que deseas compartir.</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<form onSubmit={submit} className="grid items-start gap-4">
+					<form onSubmit={submit} id="newPost" className="grid items-start gap-4">
 						<div className="grid gap-2">
 							<Label htmlFor="title">Título</Label>
-							<Input id="title" type="text" placeholder="Título" value={data.title} onChange={e => setData("title", e.target.value)}/>
+							<Input id="title" type="text" placeholder="¿Cómo se llamará tu escrito?" value={data.title} onChange={event => setData("title", event.target.value)} autoFocus/>
 							{errors.title && <div className="text-sm text-red-500">{errors.title}</div>}
 						</div>
 						<div className="grid gap-2">
 							<Label htmlFor="title">Cuerpo</Label>
-							<TiptapEditor/>
-							{errors.title && <div className="text-sm text-red-500">{errors.title}</div>}
+							<TiptapEditor value={data.body} placeholder="Escribe algo increíble..." onChange={content => setData("body", content)}/>
+							{errors.body && <div className="text-sm text-red-500">{errors.body}</div>}
+						</div>
+						<div className="grid gap-2">
+							<Label htmlFor="picture">Imagen</Label>
+							<Input id="picture" type="file" onChange={event => setData("picture", event.target.files![0])}/>
+							{errors.picture && <div className="text-sm text-red-500">{errors.picture}</div>}
 						</div>
 					</form>
 				</CardContent>
@@ -58,17 +85,17 @@ export default function NewPost() {
 					<Link className={buttonVariants({
 						variant: "ghost",
 					})} href={route("user.publications")}>Cancelar</Link>
-					<Button variant="secondary" type="submit" disabled={processing}>
+					<Button variant="secondary" type="submit" form="newPost" onClick={() => setData("is_sketch", true)} disabled={processing}>
 						{processing ? (
-							<CircleNotch className="animate-spin"/>
+							<SpinnerGap className="animate-spin"/>
 						) : (
 							<Eraser weight="fill"/>
 						)}
 						Guardar como borrador
 					</Button>
-					<Button type="submit" disabled={processing}>
+					<Button type="submit" form="newPost" onClick={() => setData("is_sketch", false)} disabled={processing}>
 						{processing ? (
-							<CircleNotch className="animate-spin"/>
+							<SpinnerGap className="animate-spin"/>
 						) : (
 							<NotePencil weight="fill"/>
 						)}
