@@ -59,7 +59,7 @@ function DisplayPublicationCards({posts}: { posts: PostModel[] }) {
 						<p className="text-xs text-gray-400 text-right">Última actualización {formatDistanceToNow(item.updated_at, {addSuffix: true, locale: es})}</p>
 					</CardContent>
 					<CardFooter className="p-4 pt-0 flex items-end justify-end gap-2.5">
-						<Button size="sm">
+						<Button size="sm" sidebarResponsive>
 							<Eye/>
 							Ver
 						</Button>
