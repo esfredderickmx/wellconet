@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/Components/theme-provider";
 import { ToastShower } from "@/Components/Atoms/ToastShower";
 import { SonnerShower } from "@/Components/Atoms/SonnerShower";
 

@@ -1,7 +1,7 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/Components/ui/dropdown-menu";
 import { Button } from "@/Components/ui/button";
 import { Moon, Sun } from "@phosphor-icons/react";
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from "@/Components/theme-provider";
 
 export function ThemeSelector() {
 	const {theme} = useTheme();

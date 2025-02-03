@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from "react";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/Components/theme-provider";
 import { SidebarInset, SidebarProvider } from "@/Components/ui/sidebar";
 import { AppSidebar } from "@/Components/Templates/AppSidebar";
 import { AppSidebarTrigger } from "@/Components/Atoms/AppSidebarTrigger";

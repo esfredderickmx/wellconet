@@ -21,7 +21,7 @@ class AuthenticationController extends Controller {
    * @throws Exception
    */
   public function authenticationRedirect() {
-	  Auth::login(User::get()->random());
+	  Auth::login(User::whereId(7)->first());
 	  Session::regenerate();
 
 		sendFlashNotification('Sesión iniciada correctamente.', FrontendNotificationType::SUCCESS);

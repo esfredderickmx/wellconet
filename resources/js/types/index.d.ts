@@ -1,21 +1,21 @@
-import { User } from "@/types/models/User";
+import { UserModel } from "@/types/models/UserModel";
 import { BackendMessage } from "@/types/interfaces/BackendMessage";
 import { BackendNotification } from "@/types/interfaces/BackendNotification";
-import { BaseDictionaryData } from "@/types/models/BaseDictionaryData";
+import { BaseDictionaryDataModel } from "@/types/models/BaseDictionaryDataModel";
 
 export type PageProps<
 	T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {
 	auth: {
-		user: User;
+		user: UserModel;
 	};
 	flash: {
 		message: BackendMessage;
 		notification: BackendNotification;
 	};
 	dictionaries: {
-		departments: BaseDictionaryData[];
-		offices: BaseDictionaryData[];
+		departments: BaseDictionaryDataModel[];
+		offices: BaseDictionaryDataModel[];
 	};
 	can: {
 		write_posts: boolean;
