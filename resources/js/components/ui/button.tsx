@@ -64,7 +64,7 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 	({className, variant, size, responsive, sidebarResponsive, asChild = false, children, ...props}, ref) => {
 		const Comp = asChild ? Slot : "button";
-		const {state, isMobile} = useSidebar();
+		const {state, isMobile} = sidebarResponsive ? useSidebar() : {};
 		const isCollapsed = state === "collapsed" || isMobile;
 
 		const sidebarResponsiveClasses = sidebarResponsive

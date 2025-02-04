@@ -11,6 +11,7 @@ return new class extends Migration {
 			$table->id();
 			$table->foreignIdFor(User::class)->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
 			$table->string('title', 100);
+			$table->string('description', 350);
 			$table->text('body');
 			$table->string('picture');
 			$table->boolean('is_sketch')->default(false);

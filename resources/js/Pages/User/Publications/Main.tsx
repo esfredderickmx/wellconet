@@ -11,7 +11,7 @@ import { Badge } from "@/Components/ui/badge";
 import { useSidebar } from "@/Components/ui/sidebar";
 import { PublicationCardSkeleton } from "@/Components/Atoms/PublicationCardSkeleton";
 
-export default function Main({posts}: { posts: PostModel[] }) {
+export default function Main({posts = []}: { posts: PostModel[] }) {
 	const {open} = useSidebar();
 
 	return (
@@ -27,7 +27,7 @@ export default function Main({posts}: { posts: PostModel[] }) {
 			</Link>
 
 			<div className={`grid grid-cols ${open ? "md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"} gap-4 mt-6`}>
-				<Deferred data="posts" fallback={<PublicationCardSkeleton count={5}/>}>
+				<Deferred data="posts" fallback={<PublicationCardSkeleton count={10}/>}>
 					<DisplayPublicationCards posts={posts}/>
 				</Deferred>
 			</div>
@@ -35,7 +35,7 @@ export default function Main({posts}: { posts: PostModel[] }) {
 	);
 }
 
-function DisplayPublicationCards({posts}: { posts: PostModel[] }) {
+function DisplayPublicationCards({posts}: { posts: PostModel[] }) {	
 	return (
 		<>
 			{posts.map((item, index) => (
@@ -55,7 +55,7 @@ function DisplayPublicationCards({posts}: { posts: PostModel[] }) {
 							<CardTitle className="text-xl font-semibold">{item.title}</CardTitle>
 							<Badge variant={item.is_sketch ? "secondary" : "default"}>{item.is_sketch ? "Borrador" : "Publicada"}</Badge>
 						</div>
-						<CardDescription className="text-sm text-gray-600 mb-4 flex-grow">{item.title}</CardDescription>
+						<CardDescription className="text-sm text-gray-600 mb-4 flex-grow">{item.description}</CardDescription>
 						<p className="text-xs text-gray-400 text-right">Última actualización {formatDistanceToNow(item.updated_at, {addSuffix: true, locale: es})}</p>
 					</CardContent>
 					<CardFooter className="p-4 pt-0 flex items-end justify-end gap-2.5">
@@ -63,7 +63,7 @@ function DisplayPublicationCards({posts}: { posts: PostModel[] }) {
 							<Eye/>
 							Ver
 						</Button>
-						<Button variant="outline" size="sm">
+						<Button variant="outline" size="sm" sidebarResponsive>
 							<PencilSimple/>
 							Editar
 						</Button>

@@ -8,6 +8,7 @@ class NewPostRequest extends FormRequest {
 	public function rules(): array {
 		return [
 			'title' => ['required', 'string', 'max:100'],
+			'description' => ['required', 'string', 'max:350'],
 			'body' => ['required', 'string'],
 			'picture' => ['required', 'file', 'image'],
 			'is_sketch' => ['boolean'],

@@ -85,6 +85,7 @@ function CompleteProfileForm({className, setOpen}: { className?: string, setOpen
 							reject("unkown");
 						}
 					},
+					only: ["auth", "dictionaries"],
 				});
 			}),
 			{

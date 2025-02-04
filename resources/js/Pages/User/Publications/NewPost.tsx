@@ -8,15 +8,18 @@ import { Button, buttonVariants } from "@/Components/ui/button";
 import { Eraser, NotePencil, SpinnerGap } from "@phosphor-icons/react";
 import React from "react";
 import { toast } from "sonner";
+import { Textarea } from "@/Components/ui/textarea";
 
 export default function NewPost() {
 	const {data, setData, post, processing, errors} = useForm<{
 		title?: string;
+		description?: string;
 		body?: string;
 		picture?: File;
 		is_sketch: boolean;
 	}>({
 		title: "",
+		description: "",
 		body: "",
 		picture: undefined,
 		is_sketch: false,
@@ -30,7 +33,7 @@ export default function NewPost() {
 			new Promise<void>((resolve, reject) => {
 				post(route("forms.new-post"), {
 					onSuccess: () => {
-						router.visit(route("user.publications"));
+						router.get(route("user.publications"));
 
 						resolve();
 					},
@@ -70,7 +73,12 @@ export default function NewPost() {
 							{errors.title && <div className="text-sm text-red-500">{errors.title}</div>}
 						</div>
 						<div className="grid gap-2">
-							<Label htmlFor="title">Cuerpo</Label>
+							<Label htmlFor="description">Descripción</Label>
+							<Textarea id="description" placeholder="Escribe una pequeña introducción para tu publicación." value={data.description} onChange={event => setData("description", event.target.value)}/>
+							{errors.description && <div className="text-sm text-red-500">{errors.description}</div>}
+						</div>
+						<div className="grid gap-2">
+							<Label htmlFor="body">Cuerpo</Label>
 							<TiptapEditor value={data.body} placeholder="Escribe algo increíble..." onChange={content => setData("body", content)}/>
 							{errors.body && <div className="text-sm text-red-500">{errors.body}</div>}
 						</div>

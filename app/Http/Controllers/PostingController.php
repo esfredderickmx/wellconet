@@ -10,7 +10,7 @@ use Inertia\Inertia;
 class PostingController extends Controller {
 	public function retrieveMyPosts(Request $request) {
 		return Inertia::render('User/Publications/Main', [
-			'posts' => Inertia::defer(fn() => Post::where('user_id', $request->user()->id)->orderByDesc('updated_at')->get(['title', 'picture', 'is_sketch', 'updated_at'])->append(['picture_url'])),
+			'posts' => Inertia::defer(fn() => Post::where('user_id', $request->user()->id)->orderByDesc('updated_at')->get(['title', 'description', 'picture', 'is_sketch', 'updated_at'])->append(['picture_url'])),
 		]);
 	}
 

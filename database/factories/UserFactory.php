@@ -23,7 +23,7 @@ class UserFactory extends Factory {
 	 */
 	public function definition(): array {
 		$picture_seed = Str::random(10);
-		
+
 		return [
 			'google_id' => fake()->uuid(),
 			'name' => fake()->name(),
