@@ -12,14 +12,22 @@ const buttonVariants = cva(
 			variant: {
 				default:
 					"bg-primary text-primary-foreground shadow hover:bg-primary/90",
-				destructive:
-					"bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
 				outline:
 					"border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
 				secondary:
 					"bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
 				ghost: "hover:bg-accent hover:text-accent-foreground",
 				link: "text-primary underline-offset-4 hover:underline",
+			},
+			emphasis: {
+				affirmative:
+					"bg-affirmative text-affirmative-foreground shadow-sm hover:bg-affirmative/90",
+				informative:
+					"bg-informative text-informative-foreground shadow-sm hover:bg-informative/90",
+				preventive:
+					"bg-preventive text-preventive-foreground shadow-sm hover:bg-preventive/90",
+				destructive:
+					"bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
 			},
 			size: {
 				default: "h-9 px-4 py-2",
@@ -35,6 +43,81 @@ const buttonVariants = cva(
 			},
 		},
 		compoundVariants: [
+			{
+				variant: "outline",
+				emphasis: ["affirmative", "informative", "preventive", "destructive"],
+				class: "bg-transparent text-foreground hover:text-accent-foreground",
+			},
+			{
+				variant: "outline",
+				emphasis: "affirmative",
+				class: "border-affirmative/50 hover:bg-affirmative/20",
+			},
+			{
+				variant: "outline",
+				emphasis: "informative",
+				class: "border-informative/50 hover:bg-informative/20",
+			},
+			{
+				variant: "outline",
+				emphasis: "preventive",
+				class: "border-preventive/50 hover:bg-preventive/20",
+			},
+			{
+				variant: "outline",
+				emphasis: "destructive",
+				class: "border-destructive/50 hover:bg-destructive/20",
+			},
+			{
+				variant: "ghost",
+				emphasis: ["affirmative", "informative", "preventive", "destructive"],
+				class: "bg-transparent text-foreground shadow-none",
+			},
+			{
+				variant: "ghost",
+				emphasis: "affirmative",
+				class: "hover:bg-affirmative/20",
+			},
+			{
+				variant: "ghost",
+				emphasis: "informative",
+				class: "hover:bg-informative/20",
+			},
+			{
+				variant: "ghost",
+				emphasis: "preventive",
+				class: "hover:bg-preventive/20",
+			},
+			{
+				variant: "ghost",
+				emphasis: "destructive",
+				class: "hover:bg-destructive/20",
+			},
+			{
+				variant: "link",
+				emphasis: ["affirmative", "informative", "preventive", "destructive"],
+				class: "bg-transparent shadow-none",
+			},
+			{
+				variant: "link",
+				emphasis: "affirmative",
+				class: "text-affirmative hover:bg-transparent",
+			},
+			{
+				variant: "link",
+				emphasis: "informative",
+				class: "text-informative hover:bg-transparent",
+			},
+			{
+				variant: "link",
+				emphasis: "preventive",
+				class: "text-preventive hover:bg-transparent",
+			},
+			{
+				variant: "link",
+				emphasis: "destructive",
+				class: "text-destructive hover:bg-transparent",
+			},
 			{
 				responsive: true,
 				size: "sm",
@@ -62,7 +145,7 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-	({className, variant, size, responsive, sidebarResponsive, asChild = false, children, ...props}, ref) => {
+	({className, variant, emphasis, size, responsive, sidebarResponsive, asChild = false, children, ...props}, ref) => {
 		const Comp = asChild ? Slot : "button";
 		const {state, isMobile} = sidebarResponsive ? useSidebar() : {};
 		const isCollapsed = state === "collapsed" || isMobile;
@@ -80,7 +163,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 		return (
 			<Comp
 				className={cn(
-					buttonVariants({variant, size, responsive, sidebarResponsive}),
+					buttonVariants({variant, emphasis, size, responsive, sidebarResponsive}),
 					sidebarResponsiveClasses,
 					className,
 				)}
