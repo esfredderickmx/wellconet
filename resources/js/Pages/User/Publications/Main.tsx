@@ -1,7 +1,7 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Deferred, Head, Link } from "@inertiajs/react";
 import { Button, buttonVariants } from "@/Components/ui/button";
-import { Eye, Pen, PencilSimple, Trash } from "@phosphor-icons/react";
+import { Eye, NotePencil, Pen, PencilSimple, Trash } from "@phosphor-icons/react";
 import React from "react";
 import { PostModel } from "@/types/models/PostModel";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card";
@@ -10,6 +10,7 @@ import { es } from "date-fns/locale";
 import { Badge } from "@/Components/ui/badge";
 import { useSidebar } from "@/Components/ui/sidebar";
 import { PublicationCardSkeleton } from "@/Components/Atoms/PublicationCardSkeleton";
+import { EmptyState } from "@/Components/Atoms/EmptyState";
 
 export default function Main({posts = []}: { posts: PostModel[] }) {
 	const {open} = useSidebar();
@@ -26,16 +27,22 @@ export default function Main({posts = []}: { posts: PostModel[] }) {
 				Escribir una publicación
 			</Link>
 
-			<div className={`grid grid-cols ${open ? "md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"} gap-4 mt-6`}>
-				<Deferred data="posts" fallback={<PublicationCardSkeleton count={10}/>}>
-					<DisplayPublicationCards posts={posts}/>
-				</Deferred>
+			<div className="mt-6">
+				{!posts || posts.length === 0 ? (
+					<EmptyState header="Sin publicaciones" description="Aún no has compartido nada con la empresa. Comienza escribiendo una publicación nueva." icon={NotePencil} variant="cards"/>
+				) : (
+					<div className={`grid grid-cols ${open ? "md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"} gap-4`}>
+						<Deferred data="posts" fallback={<PublicationCardSkeleton count={10}/>}>
+							<DisplayPublicationCards posts={posts}/>
+						</Deferred>
+					</div>
+				)}
 			</div>
 		</>
 	);
 }
 
-function DisplayPublicationCards({posts}: { posts: PostModel[] }) {	
+function DisplayPublicationCards({posts}: { posts: PostModel[] }) {
 	return (
 		<>
 			{posts.map((item, index) => (
@@ -47,6 +54,7 @@ function DisplayPublicationCards({posts}: { posts: PostModel[] }) {
 								alt={item.title}
 								className="w-full h-full object-cover rounded-t-lg"
 								loading="lazy"
+								draggable="false"
 							/>
 						</div>
 					</CardHeader>
