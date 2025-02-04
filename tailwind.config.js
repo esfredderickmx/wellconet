@@ -51,6 +51,18 @@ export default {
     				DEFAULT: 'hsl(var(--accent))',
     				foreground: 'hsl(var(--accent-foreground))'
     			},
+    			affirmative: {
+    				DEFAULT: 'hsl(var(--affirmative))',
+    				foreground: 'hsl(var(--affirmative-foreground))'
+    			},
+    			informative: {
+    				DEFAULT: 'hsl(var(--informative))',
+    				foreground: 'hsl(var(--informative-foreground))'
+    			},
+    			preventive: {
+    				DEFAULT: 'hsl(var(--preventive))',
+    				foreground: 'hsl(var(--preventive-foreground))'
+    			},
     			destructive: {
     				DEFAULT: 'hsl(var(--destructive))',
     				foreground: 'hsl(var(--destructive-foreground))'
