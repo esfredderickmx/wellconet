@@ -70,22 +70,22 @@ export default function NewPost() {
 						<div className="grid gap-2">
 							<Label htmlFor="title">Título</Label>
 							<Input id="title" type="text" placeholder="¿Cómo se llamará tu escrito?" value={data.title} onChange={event => setData("title", event.target.value)} autoFocus/>
-							{errors.title && <div className="text-sm text-red-500">{errors.title}</div>}
+							{errors.title && <div className="text-sm text-destructive">{errors.title}</div>}
 						</div>
 						<div className="grid gap-2">
 							<Label htmlFor="description">Descripción</Label>
 							<Textarea id="description" placeholder="Escribe una pequeña introducción para tu publicación." value={data.description} onChange={event => setData("description", event.target.value)}/>
-							{errors.description && <div className="text-sm text-red-500">{errors.description}</div>}
+							{errors.description && <div className="text-sm text-destructive">{errors.description}</div>}
 						</div>
 						<div className="grid gap-2">
 							<Label htmlFor="body">Cuerpo</Label>
 							<TiptapEditor value={data.body} placeholder="Escribe algo increíble..." onChange={content => setData("body", content)}/>
-							{errors.body && <div className="text-sm text-red-500">{errors.body}</div>}
+							{errors.body && <div className="text-sm text-destructive">{errors.body}</div>}
 						</div>
 						<div className="grid gap-2">
 							<Label htmlFor="picture">Imagen</Label>
 							<Input id="picture" type="file" onChange={event => setData("picture", event.target.files![0])}/>
-							{errors.picture && <div className="text-sm text-red-500">{errors.picture}</div>}
+							{errors.picture && <div className="text-sm text-destructive">{errors.picture}</div>}
 						</div>
 					</form>
 				</CardContent>
