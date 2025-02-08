@@ -10,8 +10,9 @@ import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { Placeholder } from "@tiptap/extension-placeholder";
+import { Label } from "@/Components/ui/label";
 
-export function TiptapEditor({value, placeholder, onChange}: { value?: string, placeholder?: string, onChange: (content: string) => void }) {
+export function TiptapEditor({value, placeholder, withLabel, onChange}: { value?: string, placeholder?: string, withLabel?: string, onChange: (content: string) => void }) {
 	const extensions = [
 		StarterKit,
 		Placeholder.configure({placeholder: placeholder}),
@@ -21,10 +22,25 @@ export function TiptapEditor({value, placeholder, onChange}: { value?: string, p
 		Superscript];
 
 	return (
-		<div className="max-w-full overflow-y-auto">
-			<EditorProvider slotBefore={<MenuBar/>} extensions={extensions} content={value} onUpdate={({editor}) => onChange(editor.getHTML())}></EditorProvider>
-		</div>
+		<>
+			<div className="max-w-full overflow-y-auto">
+				<EditorProvider slotBefore={
+					<div className="grid gap-2">
+						{withLabel != undefined && <EditorLabel label={withLabel}/>}
+						<MenuBar/>
+					</div>
+				} extensions={extensions} content={value} onUpdate={({editor}) => onChange(editor.getHTML())}></EditorProvider>
+			</div>
+		</>
 	);
+}
+
+function EditorLabel({label}: { label: string }) {
+	const {editor} = useCurrentEditor();
+
+	if (!editor) return null;
+
+	return (<Label className="block" onClick={() => editor.chain().focus().run()}>{label}</Label>);
 }
 
 function MenuBar() {

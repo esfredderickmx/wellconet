@@ -74,12 +74,11 @@ export default function NewPost() {
 						</div>
 						<div className="grid gap-2">
 							<Label htmlFor="description">Descripción</Label>
-							<Textarea id="description" placeholder="Escribe una pequeña introducción para tu publicación." value={data.description} onChange={event => setData("description", event.target.value)}/>
+							<Textarea id="description" placeholder="Escribe una pequeña introducción para tu publicación." autoResize value={data.description} onChange={event => setData("description", event.target.value)}/>
 							{errors.description && <div className="text-sm text-destructive">{errors.description}</div>}
 						</div>
 						<div className="grid gap-2">
-							<Label htmlFor="body">Cuerpo</Label>
-							<TiptapEditor value={data.body} placeholder="Escribe algo increíble..." onChange={content => setData("body", content)}/>
+							<TiptapEditor value={data.body} placeholder="Escribe algo increíble..." withLabel="Cuerpo" onChange={content => setData("body", content)}/>
 							{errors.body && <div className="text-sm text-destructive">{errors.body}</div>}
 						</div>
 						<div className="grid gap-2">

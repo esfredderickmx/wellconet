@@ -1,7 +1,7 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Deferred, Head, Link } from "@inertiajs/react";
 import { Button, buttonVariants } from "@/Components/ui/button";
-import { Eye, NotePencil, Pen, PencilSimple, Trash } from "@phosphor-icons/react";
+import { LinkSimple, NotePencil, PencilSimple, PencilSimpleLine, Trash } from "@phosphor-icons/react";
 import React from "react";
 import { PostModel } from "@/types/models/PostModel";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card";
@@ -23,7 +23,7 @@ export default function Main({posts = []}: { posts: PostModel[] }) {
 				variant: "default",
 				size: "lg",
 			})} href={route("user.publications.new-post")}>
-				<Pen/>
+				<PencilSimpleLine/>
 				Escribir una publicación
 			</Link>
 
@@ -68,15 +68,15 @@ function DisplayPublicationCards({posts}: { posts: PostModel[] }) {
 					</CardContent>
 					<CardFooter className="p-4 pt-0 flex items-end justify-end gap-2.5">
 						<Button variant="ghost" size="sm" sidebarResponsive>
-							<Eye/>
-							Ver
+							<LinkSimple/>
+							Visitar
 						</Button>
 						<Button variant="outline" size="sm">
 							<PencilSimple/>
 							Editar
 						</Button>
 						<Button emphasis="destructive" size="sm">
-							<Trash/>
+							<Trash weight="fill"/>
 							Eliminar
 						</Button>
 					</CardFooter>
