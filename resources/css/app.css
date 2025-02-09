@@ -152,3 +152,65 @@
 .tiptap pre {
 	@apply bg-sidebar text-sidebar-foreground p-2 my-2.5 rounded-md;
 }
+
+.filepond--root.filepond--hopper{
+	@apply mb-0 !important
+}
+
+.filepond--credits {
+	@apply hidden !important;
+}
+
+.filepond--file-action-button {
+	@apply cursor-pointer !important;
+}
+
+.filepond--drop-label {
+	@apply text-sidebar-foreground !important;
+}
+
+.filepond--panel-root {
+	@apply bg-sidebar border-2 border-sidebar-border !important;
+}
+
+.filepond--item-panel {
+	@apply bg-primary !important;
+}
+
+.filepond--drip-blob {
+	@apply bg-primary !important;
+}
+
+.filepond--file-action-button {
+	@apply bg-border !important;
+}
+
+.filepond--file-action-button {
+	@apply text-muted-foreground !important;
+}
+
+.filepond--file-action-button:hover,
+.filepond--file-action-button:focus {
+	@apply ring-muted ring-2 !important;
+}
+
+[data-filepond-item-state*='error'] .filepond--item-panel,
+[data-filepond-item-state*='invalid'] .filepond--item-panel {
+	@apply bg-destructive !important;
+}
+
+[data-filepond-item-state='processing-complete'] .filepond--item-panel {
+	@apply bg-affirmative !important;
+}
+
+.filepond--image-preview {
+	@apply bg-border !important;
+}
+
+.filepond--image-preview-overlay-failure {
+	@apply text-destructive !important;
+}
+
+.filepond--image-preview-overlay-success {
+	@apply text-affirmative !important;
+}

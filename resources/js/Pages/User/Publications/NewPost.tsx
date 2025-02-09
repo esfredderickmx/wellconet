@@ -6,27 +6,30 @@ import { Input } from "@/Components/ui/input";
 import { TiptapEditor } from "@/Components/Molecules/TiptapEditor";
 import { Button, buttonVariants } from "@/Components/ui/button";
 import { Eraser, NotePencil, SpinnerGap } from "@phosphor-icons/react";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 import { Textarea } from "@/Components/ui/textarea";
+import { FilepondHandler } from "@/Components/Atoms/FilepondHandler";
 
 export default function NewPost() {
+	const [fileError, setFileError] = useState<string | null>(null);
 	const {data, setData, post, processing, errors} = useForm<{
 		title?: string;
 		description?: string;
 		body?: string;
-		picture?: File;
+		picture?: string;
 		is_sketch: boolean;
 	}>({
 		title: "",
 		description: "",
 		body: "",
-		picture: undefined,
+		picture: "",
 		is_sketch: false,
 	});
 
 	const submit: React.FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
+		console.log(data);
 
 		toast.dismiss();
 		toast.promise(
@@ -60,7 +63,7 @@ export default function NewPost() {
 		<>
 			<Head title="Escribir publicación"/>
 
-			<Card className="max-w-md lg:max-w-4xl">
+			<Card className="max-w-md md:max-w-2xl lg:max-w-4xl">
 				<CardHeader>
 					<CardTitle>Escribe una publicación nueva</CardTitle>
 					<CardDescription>Llena el siguiente formulario con la información que deseas compartir.</CardDescription>
@@ -82,9 +85,13 @@ export default function NewPost() {
 							{errors.body && <div className="text-sm text-destructive">{errors.body}</div>}
 						</div>
 						<div className="grid gap-2">
-							<Label htmlFor="picture">Imagen</Label>
-							<Input id="picture" type="file" onChange={event => setData("picture", event.target.files![0])}/>
-							{errors.picture && <div className="text-sm text-destructive">{errors.picture}</div>}
+							<Label>Imagen</Label>
+							<FilepondHandler setFilepondError={setFileError} onChange={content => setData("picture", content)}/>
+							{fileError ? (
+								<div className="text-sm text-destructive">{fileError}</div>
+							) : errors.picture && (
+								<div className="text-sm text-destructive">{errors.picture}</div>
+							)}
 						</div>
 					</form>
 				</CardContent>

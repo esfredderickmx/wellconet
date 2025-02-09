@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Posting\NewPostRequest;
 use App\Models\Post;
+use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Storage;
+use Str;
 
 class PostingController extends Controller {
 	public function retrieveMyPosts(Request $request) {
@@ -17,10 +20,14 @@ class PostingController extends Controller {
 	public function writeNewPost(NewPostRequest $request) {
 		$validated = $request->validated();
 
-		$validated['picture'] = $request->file('picture')->store("posts", "public");
+		$filename_to_move = Str::of("posts/")->append(Str::afterLast($validated['picture'], '/'));
 
-		$post = Post::create($validated);
+		if (Storage::disk('public')->move($validated['picture'], $filename_to_move)) {
+			$validated['picture'] = $filename_to_move;
+			
+			$post = Post::create($validated);
 
-		$post->user()->associate($request->user())->save();
+			$post->user()->associate($request->user())->save();
+		}
 	}
 }

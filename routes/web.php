@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\FilepondController;
 use App\Http\Controllers\PostingController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,11 @@ Route::middleware('auth')->group(function () {
 
 	Route::post('/complete-profile', [UserProfileController::class, 'completeProfile'])->name('forms.complete-profile');
 	Route::post('/create-post', [PostingController::class, 'writeNewPost'])->name('forms.new-post');
+	
+	Route::prefix('/filepond-uploads')->group(function () {
+		Route::post('/', [FilepondController::class, 'processFilepondUpload'])->name('filepond.process');
+		Route::delete('/', [FilepondController::class, 'revertFilepondUpload'])->name('filepond.revert');
+	})->name('filepond.root');
 });
 
 //Route::get('/example', function () {
