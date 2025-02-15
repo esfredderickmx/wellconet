@@ -11,11 +11,13 @@ import { Badge } from "@/Components/ui/badge";
 import { useSidebar } from "@/Components/ui/sidebar";
 import { PublicationCardSkeleton } from "@/Components/Atoms/PublicationCardSkeleton";
 import { EmptyState } from "@/Components/Atoms/EmptyState";
+import { BasePaginatedDataModel } from "@/types/models/BasePaginatedDataModel";
+import { Paginator } from "@/Components/Atoms/Paginator";
 
-export default function Main({posts = []}: { posts: PostModel[] }) {
+export default function Main({posts}: { posts: BasePaginatedDataModel<PostModel> }) {
 	const {open} = useSidebar();
 
-	if (!posts || posts.length === 0) {
+	if (!posts || posts.data.length === 0) {
 		return (
 			<EmptyState header="Sin publicaciones" description="Aún no has compartido nada con la empresa. Comienza escribiendo una publicación nueva." icon={NotePencil} variant="cards"/>
 		)
@@ -35,11 +37,13 @@ export default function Main({posts = []}: { posts: PostModel[] }) {
 
 			<div className="mt-6">				
 				<div className={`grid grid-cols ${open ? "md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"} gap-4`}>
-					<Deferred data="posts" fallback={<PublicationCardSkeleton count={10}/>}>
-						<DisplayPublicationCards posts={posts}/>
+					<Deferred data="posts" fallback={<PublicationCardSkeleton count={4}/>}>
+						<DisplayPublicationCards posts={posts.data}/>
 					</Deferred>
 				</div>
 			</div>
+			
+			<Paginator links={posts.links}/>
 		</>
 	);
 }

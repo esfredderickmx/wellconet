@@ -12,7 +12,7 @@ use Str;
 class PostingController extends Controller {
 	public function retrieveMyPosts(Request $request) {
 		return Inertia::render('User/Publications/Main', [
-			'posts' => Inertia::defer(fn() => Post::where('user_id', $request->user()->id)->orderByDesc('updated_at')->get(['title', 'description', 'picture', 'is_sketch', 'updated_at'])->append(['picture_url'])),
+			'posts' => Inertia::defer(fn() => Post::where('user_id', $request->user()->id)->orderByDesc('updated_at')->paginate(10, ['title', 'description', 'picture', 'is_sketch', 'updated_at'])->through(fn(Post $post) => $post->append('picture_url'))),
 		]);
 	}
 
@@ -23,7 +23,7 @@ class PostingController extends Controller {
 
 		if (Storage::disk('public')->move($validated['picture'], $filename_to_move)) {
 			$validated['picture'] = $filename_to_move;
-			
+
 			$post = Post::create($validated);
 
 			$post->user()->associate($request->user())->save();
