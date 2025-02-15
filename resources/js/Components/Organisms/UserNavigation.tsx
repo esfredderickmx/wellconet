@@ -1,7 +1,7 @@
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/Components/ui/sidebar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/Components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
-import { Briefcase, BuildingOffice, CoinVertical, DotsThreeOutlineVertical, Gear, MapPin, SignOut, TextAlignLeft } from "@phosphor-icons/react";
+import { Briefcase, BuildingOffice, ChartLine, DotsThreeOutlineVertical, Gear, MapPin, SignOut, TextAlignLeft } from "@phosphor-icons/react";
 import { Link, usePage } from "@inertiajs/react";
 import { NavigationItem } from "@/types/interfaces/NavigationItem";
 
@@ -19,7 +19,7 @@ export function UserNavigation() {
 		{
 			title: "Mis estadísticas",
 			url: route("user.statistics"),
-			icon: CoinVertical,
+			icon: ChartLine,
 			isActive: route().current("user.statistics"),
 		},
 		{

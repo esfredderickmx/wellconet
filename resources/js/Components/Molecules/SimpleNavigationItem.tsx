@@ -15,7 +15,7 @@ export function SimpleNavigationItem({item}: { item: NavigationItem }) {
 		<SidebarMenuItem key={item.title}>
 			<SidebarMenuButton tooltip={item.title} asChild isActive={item.isActive} onClick={closeOnMobile}>
 				<Link href={item.url}>
-					{item.icon && <item.icon/>}
+					{item.icon && <item.icon weight="fill"/>}
 					<span>{item.title}</span>
 				</Link>
 			</SidebarMenuButton>

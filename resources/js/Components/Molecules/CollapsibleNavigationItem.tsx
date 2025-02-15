@@ -28,7 +28,7 @@ export function CollapsibleNavigationItem({item}: { item: NavigationItem }) {
 			<SidebarMenuItem>
 				<CollapsibleTrigger asChild>
 					<SidebarMenuButton tooltip={item.title}>
-						{item.icon && <item.icon/>}
+						{item.icon && <item.icon weight="fill"/>}
 						<span>{item.title}</span>
 						<CaretRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"/>
 					</SidebarMenuButton>
