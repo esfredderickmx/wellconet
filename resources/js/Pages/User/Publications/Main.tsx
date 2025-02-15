@@ -15,6 +15,12 @@ import { EmptyState } from "@/Components/Atoms/EmptyState";
 export default function Main({posts = []}: { posts: PostModel[] }) {
 	const {open} = useSidebar();
 
+	if (!posts || posts.length === 0) {
+		return (
+			<EmptyState header="Sin publicaciones" description="Aún no has compartido nada con la empresa. Comienza escribiendo una publicación nueva." icon={NotePencil} variant="cards"/>
+		)
+	}
+	
 	return (
 		<>
 			<Head title="Mis publicaciones"/>
@@ -27,16 +33,12 @@ export default function Main({posts = []}: { posts: PostModel[] }) {
 				Escribir una publicación
 			</Link>
 
-			<div className="mt-6">
-				{!posts || posts.length === 0 ? (
-					<EmptyState header="Sin publicaciones" description="Aún no has compartido nada con la empresa. Comienza escribiendo una publicación nueva." icon={NotePencil} variant="cards"/>
-				) : (
-					<div className={`grid grid-cols ${open ? "md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"} gap-4`}>
-						<Deferred data="posts" fallback={<PublicationCardSkeleton count={10}/>}>
-							<DisplayPublicationCards posts={posts}/>
-						</Deferred>
-					</div>
-				)}
+			<div className="mt-6">				
+				<div className={`grid grid-cols ${open ? "md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"} gap-4`}>
+					<Deferred data="posts" fallback={<PublicationCardSkeleton count={10}/>}>
+						<DisplayPublicationCards posts={posts}/>
+					</Deferred>
+				</div>
 			</div>
 		</>
 	);

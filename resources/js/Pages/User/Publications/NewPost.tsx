@@ -27,28 +27,30 @@ export default function NewPost() {
 		is_sketch: false,
 	});
 
-	const submit: React.FormEventHandler<HTMLFormElement> = (e) => {
+	const handleFormSubmit = async (): Promise<void> => {		
+		return new Promise((resolve, reject) => {
+			post(route("forms.new-post"), {
+				onSuccess: () => {
+					router.get(route("user.publications"));
+
+					resolve();
+				},
+				onFinish: () => {
+					if (Object.keys(errors).length > 0) {
+						reject("messages");
+					}
+					
+					reject("unknown");
+				},
+			});
+		});
+	};
+
+	const submit: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
-		console.log(data);
 
 		toast.dismiss();
-		toast.promise(
-			new Promise<void>((resolve, reject) => {
-				post(route("forms.new-post"), {
-					onSuccess: () => {
-						router.get(route("user.publications"));
-
-						resolve();
-					},
-					onError: () => {
-						if (Object.keys(errors).length > 0) {
-							reject("messages");
-						} else {
-							reject("unkown");
-						}
-					},
-				});
-			}),
+		toast.promise(handleFormSubmit(),
 			{
 				loading: data.is_sketch ? "Guardando el borrador de tu escrito..." : "Publicando tu última obra maestra...",
 				success: data.is_sketch ? "Borrador guardado correctamente" : "Escrito publicado correctamente",
@@ -59,6 +61,7 @@ export default function NewPost() {
 			},
 		);
 	};
+
 	return (
 		<>
 			<Head title="Escribir publicación"/>

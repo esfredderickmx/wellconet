@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Posting\NewPostRequest;
 use App\Models\Post;
-use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Storage;
