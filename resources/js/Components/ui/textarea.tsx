@@ -21,7 +21,6 @@ const Textarea = React.forwardRef<
       }
 
       textarea.addEventListener("input", adjustHeight)
-      adjustHeight() // Initial adjustment
 
       return () => textarea.removeEventListener("input", adjustHeight)
     }

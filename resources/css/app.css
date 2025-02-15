@@ -182,16 +182,20 @@
 }
 
 .filepond--file-action-button {
-	@apply bg-border !important;
+	@apply text-muted-foreground bg-border !important;
 }
 
-.filepond--file-action-button {
+.filepond--progress-indicator {
 	@apply text-muted-foreground !important;
 }
 
 .filepond--file-action-button:hover,
 .filepond--file-action-button:focus {
-	@apply ring-muted ring-2 !important;
+	@apply ring-accent ring-2 !important;
+}
+
+.filepond--file {
+	@apply text-primary-foreground font-medium !important;
 }
 
 [data-filepond-item-state*='error'] .filepond--item-panel,
@@ -205,6 +209,14 @@
 
 .filepond--image-preview {
 	@apply bg-border !important;
+}
+
+.filepond--image-preview {
+	@apply bg-accent opacity-85 !important;
+}
+
+.filepond--image-preview-overlay-idle {
+	@apply text-primary opacity-100 !important;
 }
 
 .filepond--image-preview-overlay-failure {
