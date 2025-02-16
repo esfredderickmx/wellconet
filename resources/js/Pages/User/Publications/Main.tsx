@@ -1,7 +1,7 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Deferred, Head, Link } from "@inertiajs/react";
 import { Button, buttonVariants } from "@/Components/ui/button";
-import { LinkSimple, NotePencil, PencilSimple, PencilSimpleLine, Trash } from "@phosphor-icons/react";
+import { LinkSimple, MagnifyingGlass, NotePencil, PencilSimple, PencilSimpleLine, Trash } from "@phosphor-icons/react";
 import React from "react";
 import { PostModel } from "@/types/models/PostModel";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card";
@@ -13,6 +13,7 @@ import { PublicationCardSkeleton } from "@/Components/Atoms/PublicationCardSkele
 import { EmptyState } from "@/Components/Atoms/EmptyState";
 import { BasePaginatedDataModel } from "@/types/models/BasePaginatedDataModel";
 import { Paginator } from "@/Components/Atoms/Paginator";
+import { Input } from "@/Components/ui/input";
 
 export default function Main({posts}: { posts: BasePaginatedDataModel<PostModel> }) {
 	const {open} = useSidebar();
@@ -27,15 +28,19 @@ export default function Main({posts}: { posts: BasePaginatedDataModel<PostModel>
 		<>
 			<Head title="Mis publicaciones"/>
 
-			<Link className={buttonVariants({
-				variant: "default",
-				size: "lg",
-			})} href={route("user.publications.new-post")}>
-				<PencilSimpleLine/>
-				Escribir una publicación
-			</Link>
+			<div className="flex items-center justify-between">
+				<Link className={buttonVariants({
+					variant: "default",
+					size: "lg",
+				})} href={route("user.publications.new-post")}>
+					<PencilSimpleLine/>
+					Escribir una publicación
+				</Link>
+				
+				<Input id="title" type="text" placeholder="Buscar por título..." icon={MagnifyingGlass} autoFocus containerClassName="basis-1/3"/>
+			</div>
 
-			<div className="mt-6">				
+			<div className="mt-6">
 				<div className={`grid grid-cols ${open ? "md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"} gap-4`}>
 					<Deferred data="posts" fallback={<PublicationCardSkeleton count={4}/>}>
 						<DisplayPublicationCards posts={posts.data}/>
