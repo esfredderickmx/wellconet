@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/Components/ui/button"
-import { Link } from "@inertiajs/react";
+import { InertiaLinkProps, Link } from "@inertiajs/react";
 import { CaretLeft, CaretRight, DotsThree } from "@phosphor-icons/react";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
@@ -38,7 +38,7 @@ PaginationItem.displayName = "PaginationItem"
 type PaginationLinkProps = {
   isActive?: boolean
 } & Pick<ButtonProps, "size"> &
-  Omit<React.ComponentProps<typeof Link>, "size">
+  Omit<InertiaLinkProps, "size">
 
 const PaginationLink = ({
   className,

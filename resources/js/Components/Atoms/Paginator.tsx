@@ -3,7 +3,12 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 import { Button, buttonVariants } from "@/Components/ui/button";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 
-export function Paginator({links}: { links: PaginationLinkModel[] }) {
+interface PaginatorProps {
+	links: PaginationLinkModel[]
+	propsToReload?: string[]
+}
+
+export function Paginator({links, propsToReload}: PaginatorProps) {
 	if (!links || links.length <= 1) return null;
 
 	const renderPaginationItem = (item: PaginationLinkModel) => {
@@ -24,10 +29,10 @@ export function Paginator({links}: { links: PaginationLinkModel[] }) {
 			);
 		}
 
-		if (item.label.includes("&laquo;")) return (<PaginationPrevious href={item.url!}/>);
-		if (item.label.includes("&raquo;")) return (<PaginationNext href={item.url!}/>);
+		if (item.label.includes("&laquo;")) return (<PaginationPrevious href={item.url!} preserveState={true} only={propsToReload}/>);
+		if (item.label.includes("&raquo;")) return (<PaginationNext href={item.url!} preserveState={true} only={propsToReload}/>);
 
-		return (<PaginationLink href={item.url!}>{item.label}</PaginationLink>);
+		return (<PaginationLink href={item.url!} preserveState={true} only={propsToReload}>{item.label}</PaginationLink>);
 	};
 
 	return (

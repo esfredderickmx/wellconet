@@ -1,6 +1,6 @@
 import { PaginationLinkModel } from "@/types/models/PaginationLinkModel";
 
-export interface BasePaginatedDataModel<T> {
+export interface PaginatedDataModel<T> {
 	data: T[];
 	path: string;
 	current_page: number;
