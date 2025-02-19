@@ -27,7 +27,7 @@ interface UserPostsIndexResponse {
 }
 
 export default function Index({posts}: UserPostsIndexResponse) {
-	const {open} = useSidebar();
+	const {open: isSidebarOpen} = useSidebar();
 
 	const searchQuery = useQuery<string>("search", "");
 	const sketchQuery = useQuery<string>("sketch_filter", "all");
@@ -69,21 +69,21 @@ export default function Index({posts}: UserPostsIndexResponse) {
 		<>
 			<Head title="Mis publicaciones"/>
 
-			<div className="flex items-center justify-between">
-				<Link className={buttonVariants({
+			<div className={cn("flex flex-col gap-3 items-center justify-between", isSidebarOpen ? "lg:flex-row" : "md:flex-row")}>
+				<Link className={cn("w-full", buttonVariants({
 					variant: "default",
 					size: "lg",
-				})} href={route("user.publications.new-post")}>
+				}), isSidebarOpen ? "lg:w-auto" : "md:w-auto")} href={route("user.publications.new-post")}>
 					<PencilSimpleLine/>
 					Escribir una publicación
 				</Link>
 
-				<div className="flex basis-1/2 gap-x-2 justify-end">
-					<Input id="title" type="text" placeholder="Buscar por título..." icon={MagnifyingGlass} autoFocus containerClassName="basis-1/2" value={searchFilter} onChange={event => setSearchFilter(event.target.value)}/>
+				<div className={cn("flex w-full gap-x-2 justify-end", isSidebarOpen ? "lg:basis-1/2" : "md:basis-1/2")}>
+					<Input id="title" type="text" placeholder="Buscar por título..." icon={MagnifyingGlass} autoFocus containerClassName={cn("xl:basis-1/2", isSidebarOpen ? "" : "lg:basis-4/6")} value={searchFilter} onChange={event => setSearchFilter(event.target.value)}/>
 					<TooltipProvider>
 						<Tooltip>
 							<TooltipTrigger asChild>
-								<Button size="icon" variant={showFilters ? "default" : "outline"} onClick={() => setShowFilters(!showFilters)}>
+								<Button className="shrink-0" size="icon" variant={showFilters ? "default" : "outline"} onClick={() => setShowFilters(!showFilters)}>
 									<Sliders/>
 								</Button>
 							</TooltipTrigger>
@@ -93,9 +93,9 @@ export default function Index({posts}: UserPostsIndexResponse) {
 				</div>
 			</div>
 
-			<div className={cn("flex justify-end gap-x-2 mt-4", showFilters ? "" : "hidden")}>
+			<div className={cn("flex justify-end gap-x-2 mt-3", showFilters ? "" : "hidden", isSidebarOpen ? "lg:basis-1/2" : "md:basis-1/2")}>
 				<Select value={sketchFilter} onValueChange={value => setSketchFilter(value)}>
-					<SelectTrigger id="department" className="basis-1/5">
+					<SelectTrigger id="department" className={cn("w-full", isSidebarOpen ? "lg:w-auto" : "md:w-auto")}>
 						<SelectValue placeholder="Filtrar por tipo de publicación..."/>
 					</SelectTrigger>
 					<SelectContent>
@@ -106,12 +106,12 @@ export default function Index({posts}: UserPostsIndexResponse) {
 				</Select>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button size="icon" variant={dateFilter === "true" ? "secondary" : "ghost"}>
+						<Button className="shrink-0" size="icon" variant={dateFilter === "true" ? "secondary" : "ghost"}>
 							{dateFilter === "true" && <SortDescending/>}
 							{dateFilter === "false" && <SortAscending/>}
 						</Button>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent className="w-56">
+					<DropdownMenuContent className="w-48" align="end">
 						<DropdownMenuRadioGroup value={dateFilter} onValueChange={value => setDateFilter(value)}>
 							{dateFilterOptions.map((option, index) => (
 								<DropdownMenuRadioItem key={index} value={option.value}>{option.label}</DropdownMenuRadioItem>
@@ -126,7 +126,7 @@ export default function Index({posts}: UserPostsIndexResponse) {
 					<EmptyState header="Sin publicaciones" description={searchFilter ? "Sin publicaciones que mostrar. Intenta cambiar los criterios de búsqueda." : "Aún no has compartido nada con la empresa. Comienza escribiendo una publicación nueva."} icon={searchFilter ? MagnifyingGlass : NotePencil} variant="cards"/>
 				) : (
 					<>
-						<div className={`grid grid-cols ${open ? "md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"} gap-4`}>
+						<div className={cn("grid grid-cols gap-4", isSidebarOpen ? "md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5")}>
 							<Deferred data="posts" fallback={<PublicationCardSkeleton count={4}/>}>
 								<DisplayPublicationCards posts={posts.data}/>
 							</Deferred>
