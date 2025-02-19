@@ -34,8 +34,8 @@ export default function Default({header, children}: PropsWithChildren<{ header?:
             </div>
             <ThemeSelector/>
           </header>
-          <main className="flex flex-1 gap-4 p-4">
-            <div className="w-full">{children}</div>
+          <main className="flex flex-1 p-4">
+            <div className="container mx-auto">{children}</div>
           </main>
           <CompleteProfileModal/>
         </SidebarInset>
