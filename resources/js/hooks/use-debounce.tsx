@@ -14,4 +14,4 @@ export function useDebounce(value: string, delay: number = 250) {
 	}, [value, delay]);
 
 	return debounceValue;
-};
+}

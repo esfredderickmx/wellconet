@@ -35,7 +35,7 @@ export default function NewPost() {
 
 					resolve();
 				},
-				onFinish: () => {
+				onError: () => {
 					if (Object.keys(errors).length > 0) {
 						reject("messages");
 					}

@@ -3,16 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Posting\NewPostRequest;
+use App\Http\Requests\Posting\PostIndexRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use Inertia\Inertia;
 use Storage;
 use Str;
 
 class PostingController extends Controller {
-	public function retrieveMyPosts(Request $request) {
-		return Inertia::render('User/Publications/Main', [
-			'posts' => Inertia::defer(fn() => Post::where('user_id', $request->user()->id)->orderByDesc('updated_at')->paginate(10, ['title', 'description', 'picture', 'is_sketch', 'updated_at'])->through(fn(Post $post) => $post->append('picture_url'))),
+	public function retrieveMyPosts(PostIndexRequest $request) {
+		$search = $request->safe()->string('search');
+		$date_filter = $request->safe()->boolean('date_filter', true);
+
+		if ($request->exists('sketch_filter')) {
+			$sketch_filter = $request->safe()->boolean('sketch_filter');
+		} else {
+			$sketch_filter = null;
+		}
+
+		$posts = Post::query()
+		             ->where('user_id', $request->user()->id)
+		             ->when($search, fn(Builder $query) => $query->whereLike('title', "%$search%"))
+		             ->when($sketch_filter !== null, fn(Builder $query) => $query->where('is_sketch', $sketch_filter))
+		             ->when($date_filter, fn(Builder $query) => $date_filter ? $query->latest('updated_at') : $query->oldest('updated_at'))
+		             ->paginate(10, ['title', 'description', 'picture', 'is_sketch', 'updated_at'])
+		             ->withQueryString()
+		             ->through(fn(Post $post) => $post->append('picture_url'));
+
+		return Inertia::render('User/Publications/Index', [
+			'posts' => Inertia::defer(fn() => $posts),
+			'search' => $search,
+			'sketch_filter' => $request->query('sketch_filter'),
 		]);
 	}
 
