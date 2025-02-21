@@ -1,6 +1,92 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/forms';
+@plugin 'tailwindcss-animate';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans:
+    Figtree, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-affirmative: hsl(var(--affirmative));
+  --color-affirmative-foreground: hsl(var(--affirmative-foreground));
+
+  --color-informative: hsl(var(--informative));
+  --color-informative-foreground: hsl(var(--informative-foreground));
+
+  --color-preventive: hsl(var(--preventive));
+  --color-preventive-foreground: hsl(var(--preventive-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
 @layer base {
 	:root {
 		--background: 0 0% 100%;
@@ -110,7 +196,7 @@
 }
 
 .tiptap {
-	@apply w-full rounded-b-md border border-input border-t-0 bg-transparent px-3 py-1.5 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none ring-inset focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm;
+	@apply w-full rounded-b-md border border-input border-t-0 bg-transparent px-3 py-1.5 text-base shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-hidden ring-inset focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm;
 }
 
 .tiptap h1 {
@@ -154,75 +240,75 @@
 }
 
 .filepond--root.filepond--hopper{
-	@apply mb-0 !important
+	@apply mb-0!
 }
 
 .filepond--credits {
-	@apply hidden !important;
+	@apply hidden!;
 }
 
 .filepond--file-action-button {
-	@apply cursor-pointer !important;
+	@apply cursor-pointer!;
 }
 
 .filepond--drop-label {
-	@apply text-sidebar-foreground !important;
+	@apply text-sidebar-foreground!;
 }
 
 .filepond--panel-root {
-	@apply bg-sidebar border-2 border-sidebar-border !important;
+	@apply bg-sidebar! border-2! border-sidebar-border!;
 }
 
 .filepond--item-panel {
-	@apply bg-primary !important;
+	@apply bg-primary!;
 }
 
 .filepond--drip-blob {
-	@apply bg-primary !important;
+	@apply bg-primary!;
 }
 
 .filepond--file-action-button {
-	@apply text-muted-foreground bg-border !important;
+	@apply text-muted-foreground! bg-border!;
 }
 
 .filepond--progress-indicator {
-	@apply text-muted-foreground !important;
+	@apply text-muted-foreground!;
 }
 
 .filepond--file-action-button:hover,
 .filepond--file-action-button:focus {
-	@apply ring-accent ring-2 !important;
+	@apply ring-accent! ring-2!;
 }
 
 .filepond--file {
-	@apply text-primary-foreground font-medium !important;
+	@apply text-primary-foreground! font-medium!;
 }
 
 [data-filepond-item-state*='error'] .filepond--item-panel,
 [data-filepond-item-state*='invalid'] .filepond--item-panel {
-	@apply bg-destructive !important;
+	@apply bg-destructive!;
 }
 
 [data-filepond-item-state='processing-complete'] .filepond--item-panel {
-	@apply bg-affirmative !important;
+	@apply bg-affirmative!;
 }
 
 .filepond--image-preview {
-	@apply bg-border !important;
+	@apply bg-border!;
 }
 
 .filepond--image-preview {
-	@apply bg-accent opacity-85 !important;
+	@apply bg-accent! opacity-85!;
 }
 
 .filepond--image-preview-overlay-idle {
-	@apply text-primary opacity-100 !important;
+	@apply text-primary! opacity-100!;
 }
 
 .filepond--image-preview-overlay-failure {
-	@apply text-destructive !important;
+	@apply text-destructive!;
 }
 
 .filepond--image-preview-overlay-success {
-	@apply text-affirmative !important;
+	@apply text-affirmative!;
 }

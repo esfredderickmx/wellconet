@@ -23,12 +23,12 @@ export function PublicationCards({posts}: { posts: PostModel[] }) {
 							/>
 						</div>
 					</CardHeader>
-					<CardContent className="flex-grow p-4 flex flex-col">
+					<CardContent className="grow p-4 flex flex-col">
 						<div className="flex justify-between items-start gap-4 mb-2">
 							<CardTitle className="text-xl font-semibold line-clamp-2">{item.title}</CardTitle>
 							<Badge variant={item.is_sketch ? "secondary" : "default"}>{item.is_sketch ? "Borrador" : "Publicada"}</Badge>
 						</div>
-						<CardDescription className="text-sm text-muted-foreground flex-grow mb-4">
+						<CardDescription className="text-sm text-muted-foreground grow mb-4">
 							<p className="line-clamp-3">{item.description}</p>
 						</CardDescription>
 						<p className="text-xs text-muted-foreground text-right">

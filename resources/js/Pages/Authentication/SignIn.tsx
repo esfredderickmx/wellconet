@@ -24,7 +24,7 @@ export default function SignIn() {
 				</CardHeader>
 				<CardContent className="flex gap-2">
 					<a className={buttonVariants({variant: "default"}) + " w-full"} href={route("login")}><SignInIcon/>Iniciar sesión</a>
-					<div className="flex-grow">
+					<div className="grow">
 						<ThemeSelector/>
 					</div>
 				</CardContent>

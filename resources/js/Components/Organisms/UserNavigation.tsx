@@ -62,7 +62,7 @@ export function UserNavigation() {
 							<DotsThreeOutlineVertical className="ml-auto"/>
 						</SidebarMenuButton>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent align="start" side={isMobile ? "bottom" : "right"} sideOffset={4} className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg">
+					<DropdownMenuContent align="start" side={isMobile ? "bottom" : "right"} sideOffset={4} className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg">
 						<DropdownMenuLabel className="p-0 font-normal">
 							<div className="flex items-center gap-2 px-1 py-1.5 text-left">
 								<Avatar className="w-8 h-8 rounded-lg">
@@ -90,7 +90,7 @@ export function UserNavigation() {
 						<DropdownMenuSeparator/>
 						<DropdownMenuGroup className="space-y-0.5">
 							{navigation_items.map((item) => (
-								<DropdownMenuItem key={item.title} className={item.isActive ? "!text-accent-foreground !bg-accent" : undefined} onClick={closeOnMobile} asChild>
+								<DropdownMenuItem key={item.title} className={item.isActive ? "text-accent-foreground! bg-accent!" : undefined} onClick={closeOnMobile} asChild>
 									<Link href={item.url}>
 										{item.icon && <item.icon/>}
 										{item.title}

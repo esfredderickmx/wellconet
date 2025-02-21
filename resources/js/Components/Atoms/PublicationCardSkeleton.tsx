@@ -6,7 +6,7 @@ export function PublicationCardSkeleton({count = 1}: { count?: number }) {
 			{Array.from({length: count}).map((_, index) => (
 				<div key={index} className="flex flex-col h-full">
 					<Skeleton className="h-48 w-full rounded-lg"/>
-					<div className="flex-grow p-4 flex flex-col">
+					<div className="grow p-4 flex flex-col">
 						<div className="flex justify-between items-start gap-4 mb-2">
 							<Skeleton className="h-8 basis-2/3"/>
 							<Skeleton className="h-5 basis-1/4"/>

@@ -37,7 +37,7 @@ export function EmptyState({icon: Icon, header, description, action, variant}: E
 			);
 		case "cards":
 			return (
-				<Card className="flex flex-col items-center justify-center p-8 h-[300px] bg-gradient-to-br from-muted to-muted/30">
+				<Card className="flex flex-col items-center justify-center p-8 h-[300px] bg-linear-to-br from-muted to-muted/30">
 					{renderContent()}
 				</Card>
 			);
