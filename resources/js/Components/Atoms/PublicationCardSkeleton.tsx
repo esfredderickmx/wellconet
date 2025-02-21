@@ -15,7 +15,7 @@ export function PublicationCardSkeleton({count = 1}: { count?: number }) {
 						<Skeleton className="h-4 w-3/5 self-end"/>
 					</div>
 					<div className="p-4 pt-0 flex items-end justify-end gap-2.5">
-						<Skeleton className="h-7 w-7"/>
+						<Skeleton className="size-7"/>
 						<Skeleton className="h-7 w-20"/>
 					</div>
 				</div>

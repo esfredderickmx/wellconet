@@ -28,7 +28,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 			    <Icon 
 				    weight="bold"
 				    className={cn(
-					    "absolute top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4 peer-focus-visible:text-ring",
+					    "absolute top-1/2 -translate-y-1/2 text-muted-foreground size-4 peer-focus-visible:text-ring",
 					    iconPosition === "left" && "left-3",
 					    iconPosition === "right" && "right-3",
 				    )}
