@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Posting\NewPostRequest;
 use App\Http\Requests\Posting\PostIndexRequest;
 use App\Models\Post;
+use Gate;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Storage;
 use Str;
+use function abort;
 
 class PostingController extends Controller {
 	public function retrieveMyPosts(PostIndexRequest $request) {
@@ -32,8 +35,6 @@ class PostingController extends Controller {
 
 		return Inertia::render('User/Publications/Index', [
 			'posts' => Inertia::defer(fn() => $posts),
-			'search' => $search,
-			'sketch_filter' => $request->query('sketch_filter'),
 		]);
 	}
 
@@ -49,5 +50,13 @@ class PostingController extends Controller {
 
 			$post->user()->associate($request->user())->save();
 		}
+	}
+
+	public function deletePostById(Request $request, Post $post) {
+		if ($request->user()->can('delete-post', $post)) {
+			$post->delete();
+		}
+
+		abort(403);
 	}
 }

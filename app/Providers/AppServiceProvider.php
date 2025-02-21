@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Enums\UserRole;
+use App\Models\Post;
 use App\Models\User;
 use Gate;
 use Illuminate\Support\Facades\Vite;
@@ -40,6 +41,10 @@ class AppServiceProvider extends ServiceProvider {
 
     Gate::define('make-courses', function (User $user) {
       return $user->role === UserRole::TRAINER || $user->role === UserRole::ADMIN;
+    });
+
+    Gate::define('delete-post', function (User $user, Post $post) {
+      return $user->id === $post->user_id;
     });
   }
 }

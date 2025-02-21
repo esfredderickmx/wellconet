@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 		// Route::inertia('/posts', 'UserModel/Publications/Main')->name('user.publications');
 		Route::get('/posts', [PostingController::class, 'retrieveMyPosts'])->name('user.publications');
 		Route::inertia('/new-post', 'User/Publications/NewPost')->name('user.publications.new-post');
+		Route::delete('/delete-post', [PostingController::class, 'deletePostById'])->name('user.publications.delete-post');
 
 		Route::inertia('/stats', 'User/Statistics')->name('user.statistics');
 		Route::inertia('/config', 'User/Configuration')->name('user.configuration');
