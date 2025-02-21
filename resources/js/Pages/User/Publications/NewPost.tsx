@@ -27,9 +27,10 @@ export default function NewPost() {
 		is_sketch: false,
 	});
 
-	const handleFormSubmit = async (): Promise<void> => {		
+	const handleFormSubmit = async (): Promise<void> => {
 		return new Promise((resolve, reject) => {
 			post(route("forms.new-post"), {
+				async: true,
 				onSuccess: () => {
 					router.get(route("user.publications"));
 
@@ -39,7 +40,7 @@ export default function NewPost() {
 					if (Object.keys(errors).length > 0) {
 						reject("messages");
 					}
-					
+
 					reject("unknown");
 				},
 			});
