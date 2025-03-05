@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
 import { Briefcase, BuildingOffice, ChartLine, DotsThreeOutlineVertical, Gear, MapPin, SignOut, TextAlignLeft } from "@phosphor-icons/react";
 import { Link, usePage } from "@inertiajs/react";
 import { NavigationItem } from "@/types/interfaces/NavigationItem";
+import { cn } from "@/lib/utils";
 
 export function UserNavigation() {
 	const {open, isMobile, setOpenMobile} = useSidebar();
@@ -51,7 +52,7 @@ export function UserNavigation() {
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<SidebarMenuButton isActive={is_active} tooltip="Perfil" size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-							<Avatar className={`${open ? "" : "p-1"} w-8 h-8 rounded-lg`}>
+							<Avatar className={cn("size-8 rounded-lg", open ? "" : "p-1 -m-2")}>
 								<AvatarImage src={user.picture} alt={user.name} className="rounded-sm"/>
 								<AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
 							</Avatar>
@@ -65,7 +66,7 @@ export function UserNavigation() {
 					<DropdownMenuContent align="start" side={isMobile ? "bottom" : "right"} sideOffset={4} className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg">
 						<DropdownMenuLabel className="p-0 font-normal">
 							<div className="flex items-center gap-2 px-1 py-1.5 text-left">
-								<Avatar className="w-8 h-8 rounded-lg">
+								<Avatar className="size-8 rounded-lg">
 									<AvatarImage src={user.picture} alt={user.name}/>
 									<AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
 								</Avatar>
